@@ -64,14 +64,13 @@ export default async function handler(req, res) {
       data: { number, to_email }
     });
 
-  } catch (error) {
-    console.error("Gagal kirim email:", error);
-    
-    // Response gagal ke bot
-    return res.status(500).json({
-      success: false,
-      message: "Gagal mengirim email via Gmail",
-      error: error.message
-    });
-  }
+} catch (error) {
+  console.error("Gagal kirim email:", error);
+  
+  // Kirim pesan error ASLI dari Gmail ke bot
+  return res.status(500).json({
+    success: false,
+    message: "Gagal mengirim email via Gmail: " + error.message, // <-- Tambahkan error.message
+  });
+}
 }
